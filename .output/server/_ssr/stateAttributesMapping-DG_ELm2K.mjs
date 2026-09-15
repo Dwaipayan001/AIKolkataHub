@@ -1,1 +1,0 @@
-import{h as e,s as t}from"./collapsibleOpenStateMapping-C_TZhbjT.mjs";var n=function(e){return e.index=`data-index`,e.disabled=`data-disabled`,e.open=`data-open`,e}({}),r={...e,index:e=>({[n.index]:String(e)}),...t,value:()=>null};export{r};

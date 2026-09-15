@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import {
   ArrowLeft,
@@ -20,6 +21,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { CourseRoadmap } from '@/components/course-roadmap';
+import { DemoBookingForm } from '@/components/demo-booking-form';
 import { courses, getCourse } from '@/lib/courses';
 
 type PageProps = { params: Promise<{ slug: string }> };
@@ -33,10 +35,10 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const course = getCourse(slug);
-  if (!course) return { title: 'Course not found | CodeAdda.ai' };
+  if (!course) return { title: 'Course not found | AIKolkataHub' };
   const description = `${course.summary} Live online ${course.shortTitle} coaching for school and college students, held on Saturdays and Sundays.`;
   return {
-    title: `${course.title} Course in Kolkata | CodeAdda.ai`,
+    title: `${course.title} Course in Kolkata | AIKolkataHub`,
     description,
     alternates: { canonical: `/courses/${course.slug}` },
     keywords: [
@@ -46,7 +48,7 @@ export async function generateMetadata({
       'AI courses Kolkata',
     ],
     openGraph: {
-      title: `${course.title} | CodeAdda.ai`,
+      title: `${course.title} | AIKolkataHub`,
       description,
       url: `/courses/${course.slug}`,
       type: 'website',
@@ -55,7 +57,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: 'summary',
-      title: `${course.title} | CodeAdda.ai`,
+      title: `${course.title} | AIKolkataHub`,
       description,
       images: [],
     },
@@ -79,7 +81,7 @@ export default async function CoursePage({ params }: PageProps) {
             description: course.summary,
             provider: {
               '@type': 'EducationalOrganization',
-              name: 'CodeAdda.ai',
+              name: 'AIKolkataHub',
               areaServed: 'Kolkata, West Bengal',
             },
             educationalLevel: course.level,
@@ -92,14 +94,14 @@ export default async function CoursePage({ params }: PageProps) {
       />
 
       <header className="course-header">
-        <a href="/" className="brand" aria-label="CodeAdda.ai home">
+        <Link href="/" className="brand" aria-label="AIKolkataHub home">
           <span className="brand-mark">
             <Terminal size={19} />
           </span>
           <span>
-            CodeAdda<span>.ai</span>
+            AIKolkata<span>Hub</span>
           </span>
-        </a>
+        </Link>
         <nav aria-label="Course navigation">
           <a href="#curriculum">Curriculum</a>
           <a href="#projects">Projects</a>
@@ -113,14 +115,14 @@ export default async function CoursePage({ params }: PageProps) {
       <section className="course-hero">
         <div className="hero-grid" aria-hidden="true" />
         <div className="course-breadcrumb">
-          <a href="/">
+          <Link href="/">
             <ArrowLeft size={14} /> All programs
-          </a>
+          </Link>
           <span>/</span>
           <span>{course.code}</span>
         </div>
         <div className="course-hero-grid">
-          <div className="course-hero-copy">
+          <article className="course-hero-copy">
             <span className="eyebrow">
               <i /> {course.eyebrow}
             </span>
@@ -141,7 +143,7 @@ export default async function CoursePage({ params }: PageProps) {
                 View curriculum
               </a>
             </div>
-          </div>
+          </article>
           <aside className="course-spec-card" aria-label="Course details">
             <div className="spec-top">
               <span>{course.code}</span>
@@ -182,11 +184,11 @@ export default async function CoursePage({ params }: PageProps) {
       </section>
 
       <section className="course-intro course-shell">
-        <div>
-          <span className="kicker">// THE OUTCOME</span>
+        <article>
+          <span className="kicker">{'// THE OUTCOME'}</span>
           <h2>{course.promise}</h2>
           <p>{course.overview}</p>
-        </div>
+        </article>
         <aside>
           <h3>By the end, you can</h3>
           <ul>
@@ -201,32 +203,32 @@ export default async function CoursePage({ params }: PageProps) {
 
       <section className="curriculum-section" id="curriculum">
         <div className="course-shell">
-          <div className="course-section-heading">
-            <div>
-              <span className="kicker">// COURSE ROADMAP</span>
+          <header className="course-section-heading">
+            <article>
+              <span className="kicker">{'// COURSE ROADMAP'}</span>
               <h2>See the whole journey.</h2>
-            </div>
+            </article>
             <p>
               Follow the road from your first guided lesson to an independent
               capstone. Every milestone explains the ideas, practical skills and
               result you can expect before moving ahead.
             </p>
-          </div>
+          </header>
           <CourseRoadmap modules={course.modules} />
         </div>
       </section>
 
       <section className="projects-section course-shell" id="projects">
-        <div className="course-section-heading">
-          <div>
-            <span className="kicker">// BUILD, TEST, SHOW</span>
+        <header className="course-section-heading">
+          <article>
+            <span className="kicker">{'// BUILD, TEST, SHOW'}</span>
             <h2>Portfolio projects.</h2>
-          </div>
+          </article>
           <p>
             You won&apos;t finish with empty notes. These guided builds become
             clear proof of your skills and thinking.
           </p>
-        </div>
+        </header>
         <div className="project-grid">
           {course.projects.map((project, index) => (
             <article key={project.title}>
@@ -244,14 +246,14 @@ export default async function CoursePage({ params }: PageProps) {
 
       <section className="fit-section">
         <div className="course-shell fit-grid">
-          <div>
-            <span className="kicker">// IS THIS FOR YOU?</span>
+          <article>
+            <span className="kicker">{'// IS THIS FOR YOU?'}</span>
             <h2>A strong fit for curious builders.</h2>
             <p>
               No inflated promises—just a clear path, mentor feedback and the
               practice needed to become independent.
             </p>
-          </div>
+          </article>
           <ul>
             {course.idealFor.map((item) => (
               <li key={item}>
@@ -263,17 +265,17 @@ export default async function CoursePage({ params }: PageProps) {
       </section>
 
       <section className="toolbelt course-shell">
-        <span className="kicker">// YOUR TOOLBELT</span>
-        <div>
+        <span className="kicker">{'// YOUR TOOLBELT'}</span>
+        <header>
           {course.tools.map((tool) => (
             <span key={tool}>{tool}</span>
           ))}
-        </div>
+        </header>
       </section>
 
       <section className="course-faq course-shell" id="faq">
         <div>
-          <span className="kicker">// COURSE FAQ</span>
+          <span className="kicker">{'// COURSE FAQ'}</span>
           <h2>Know before you join.</h2>
         </div>
         <Accordion className="faq-list">
@@ -288,45 +290,40 @@ export default async function CoursePage({ params }: PageProps) {
 
       <section className="course-enrol" id="enrol">
         <div className="enrol-grid" aria-hidden="true" />
-        <div>
-          <span className="kicker">// START WITH ZERO PRESSURE</span>
-          <h2>
-            Try the learning
-            <br />
-            experience first.
-          </h2>
-          <p>
-            Meet a mentor, see how the lab works and check whether{' '}
-            {course.shortTitle} is the right path for you.
-          </p>
-          <a
-            className="primary-button large"
-            href={`mailto:hellocodeadda@gmail.com?subject=${encodeURIComponent(`Free demo: ${course.title}`)}`}
-          >
-            Book a free demo <ArrowRight size={19} />
-          </a>
-          <small>
-            Small student batches · Saturday &amp; Sunday classes · Live online
-          </small>
+        <div className="course-enrol-content">
+          <article className="course-enrol-intro">
+            <span className="kicker">{'// START WITH ZERO PRESSURE'}</span>
+            <h2>Try the learning experience first.</h2>
+            <p>
+              Meet a mentor, see how the lab works and check whether{' '}
+              {course.shortTitle} is the right path for you. Leave your details
+              and we&apos;ll email you to arrange a free demo.
+            </p>
+            <small>
+              Small student batches · Saturday &amp; Sunday classes · Live
+              online
+            </small>
+          </article>
+          <DemoBookingForm course={course.shortTitle} />
         </div>
       </section>
 
       <footer>
-        <a href="/" className="brand">
+        <Link href="/" className="brand">
           <span className="brand-mark">
             <Terminal size={19} />
           </span>
           <span>
-            CodeAdda<span>.ai</span>
+            AIKolkata<span>Hub</span>
           </span>
-        </a>
+        </Link>
         <p>{course.shortTitle} coaching for Kolkata&apos;s young builders.</p>
         <nav aria-label="Footer navigation">
-          <a href="/#programs">All programs</a>
-          <a href="/#method">Our method</a>
-          <a href="/#faq">General FAQ</a>
+          <Link href="/#programs">All programs</Link>
+          <Link href="/#course-finder">Course finder</Link>
+          <Link href="/#faq">General FAQ</Link>
         </nav>
-        <span>© 2026 CodeAdda.ai</span>
+        <span>© 2026 AIKolkataHub</span>
       </footer>
     </main>
   );

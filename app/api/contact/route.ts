@@ -1,3 +1,7 @@
+import nodemailer from 'nodemailer';
+
+export const runtime = 'nodejs';
+
 const ALLOWED_COURSES = new Set([
   'Python Foundations',
   'AI & Machine Learning',
@@ -7,16 +11,13 @@ const ALLOWED_COURSES = new Set([
 ]);
 
 type Enquiry = {
+  type?: unknown;
   name?: unknown;
   email?: unknown;
+  phone?: unknown;
   course?: unknown;
   message?: unknown;
   website?: unknown;
-};
-
-type ScriptResult = {
-  ok?: boolean;
-  error?: string;
 };
 
 const clean = (value: unknown, limit: number) =>
@@ -38,23 +39,49 @@ export async function POST(request: Request) {
 
   const name = clean(enquiry.name, 100);
   const email = clean(enquiry.email, 254);
+  const phone = clean(enquiry.phone, 30);
   const course = clean(enquiry.course, 100);
   const message = clean(enquiry.message, 3000);
+  const isDemo = enquiry.type === 'demo';
   const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const phoneDigits = phone.replace(/\D/g, '');
+  const validPhone =
+    /^[+\d().\s-]+$/.test(phone) &&
+    phoneDigits.length >= 7 &&
+    phoneDigits.length <= 15;
 
-  if (!name || !validEmail || !ALLOWED_COURSES.has(course)) {
+  if (
+    !name ||
+    !validEmail ||
+    !ALLOWED_COURSES.has(course) ||
+    (isDemo && !validPhone)
+  ) {
     return Response.json(
-      { error: 'Please check your name, email and selected course.' },
+      {
+        error:
+          'Please check your name, email, phone number and selected course.',
+      },
       { status: 400 },
     );
   }
 
-  const scriptUrl = process.env.GOOGLE_APPS_SCRIPT_URL;
-  const sharedSecret = process.env.CONTACT_FORM_SECRET;
+  const smtpHost = process.env.SMTP_HOST;
+  const smtpPort = Number(process.env.SMTP_PORT || 587);
+  const smtpUser = process.env.SMTP_USER;
+  const smtpPassword = process.env.SMTP_PASSWORD;
+  const fromEmail = process.env.CONTACT_FROM_EMAIL || smtpUser;
+  const toEmail = process.env.CONTACT_TO_EMAIL || 'hellocodeadda@gmail.com';
 
-  if (!scriptUrl || !sharedSecret) {
+  if (
+    !smtpHost ||
+    !Number.isFinite(smtpPort) ||
+    !smtpUser ||
+    !smtpPassword ||
+    !fromEmail ||
+    !toEmail
+  ) {
     console.error(
-      'Contact email requires GOOGLE_APPS_SCRIPT_URL and CONTACT_FORM_SECRET.',
+      'Contact email requires SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD and CONTACT_FROM_EMAIL.',
     );
     return Response.json(
       {
@@ -66,33 +93,35 @@ export async function POST(request: Request) {
   }
 
   try {
-    const response = await fetch(scriptUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name,
-        email,
-        course,
-        message,
-        secret: sharedSecret,
-      }),
-      redirect: 'follow',
-      signal: AbortSignal.timeout(15_000),
+    const transporter = nodemailer.createTransport({
+      host: smtpHost,
+      port: smtpPort,
+      secure: smtpPort === 465,
+      auth: { user: smtpUser, pass: smtpPassword },
     });
-    const result = (await response.json()) as ScriptResult;
 
-    if (!response.ok || !result.ok) {
-      console.error(
-        'Google Apps Script rejected a contact enquiry.',
-        result.error,
-      );
-      return Response.json(
-        { error: 'We could not send your enquiry. Please try again shortly.' },
-        { status: 502 },
-      );
-    }
+    const subject = isDemo
+      ? `Free demo request: ${course}`
+      : `New enquiry: ${course}`;
+    const body = [
+      isDemo ? 'FREE DEMO REQUEST' : 'GENERAL ENQUIRY',
+      `Name: ${name}`,
+      `Email: ${email}`,
+      `Phone: ${phone || 'Not provided'}`,
+      `Course: ${course}`,
+      '',
+      message || 'No additional message provided.',
+    ].join('\n');
+
+    await transporter.sendMail({
+      from: fromEmail,
+      to: toEmail,
+      replyTo: email,
+      subject,
+      text: body,
+    });
   } catch (error) {
-    console.error('Google Apps Script contact delivery failed.', error);
+    console.error('SMTP contact delivery failed.', error);
     return Response.json(
       { error: 'We could not send your enquiry. Please try again shortly.' },
       { status: 502 },

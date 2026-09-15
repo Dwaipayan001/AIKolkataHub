@@ -108,7 +108,7 @@ function pageBase(accent: Rgb, pageNumber: number, dark = false) {
   commands.push(rect(0, PAGE_HEIGHT - 8, PAGE_WIDTH, 8, accent));
   commands.push(
     text(
-      'CodeAdda.ai',
+      'AIKolkataHub',
       42,
       806,
       13,
@@ -131,7 +131,7 @@ function pageBase(accent: Rgb, pageNumber: number, dark = false) {
   );
   commands.push(
     text(
-      'hello@codeadda.ai',
+      'hellocodeadda@gmail.com',
       42,
       20,
       7,
@@ -355,7 +355,7 @@ function outcomesPage(course: Course, accent: Rgb) {
       [0.62, 0.67, 0.7],
     ),
   );
-  commands.push(text('hello@codeadda.ai', 409, 122, 9, 'F2', accent));
+  commands.push(text('hellocodeadda@gmail.com', 409, 122, 9, 'F2', accent));
   commands.push(
     text('Live online / Sat + Sun', 409, 102, 7.5, 'F1', [0.62, 0.67, 0.7]),
   );
@@ -384,7 +384,7 @@ function buildPdf(pageStreams: string[]) {
   objects[boldFontId] =
     '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>';
 
-  let pdf = '%PDF-1.4\n%CodeAdda\n';
+  let pdf = '%PDF-1.4\n%AIKolkataHub\n';
   const offsets = [0];
   for (let index = 1; index < objects.length; index++) {
     offsets[index] = pdf.length;

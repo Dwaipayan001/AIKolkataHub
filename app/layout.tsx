@@ -1,19 +1,12 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
 import { SITE_URL } from '@/lib/site';
 import './globals.css';
 
-const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] });
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-});
-
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: 'Agentic AI Coaching in Kolkata | CodeAdda.ai',
+  title: 'Agentic AI Coaching in Kolkata | AIKolkataHub',
   description:
-    'Learn Agentic AI, Generative AI, Python, Machine Learning and Data Science online on Saturdays and Sundays with mentors who bring Big Four GenAI experience.',
+    'Live weekend courses in Agentic AI, Generative AI, Python, Machine Learning and Data Science for school and college students in Kolkata and across India.',
   keywords: [
     'Agentic AI coaching Kolkata',
     'Agentic AI course Kolkata',
@@ -28,11 +21,11 @@ export const metadata: Metadata = {
   alternates: { canonical: '/' },
   robots: { index: true, follow: true },
   openGraph: {
-    title: 'Agentic AI Coaching in Kolkata | CodeAdda.ai',
+    title: 'Agentic AI Coaching in Kolkata | AIKolkataHub',
     description:
-      'Weekend-only, live online Agentic AI and Generative AI coaching led by mentors with hands-on Big Four GenAI experience.',
+      'Live, project-based weekend courses in Agentic AI, Python, Machine Learning and Data Science for students in Kolkata and across India.',
     url: '/',
-    siteName: 'CodeAdda.ai',
+    siteName: 'AIKolkataHub',
     type: 'website',
     locale: 'en_IN',
   },
@@ -43,9 +36,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en-IN">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

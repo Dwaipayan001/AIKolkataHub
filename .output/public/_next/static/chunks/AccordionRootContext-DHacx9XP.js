@@ -1,1 +1,0 @@
-import{r as e}from"./rolldown-runtime-C60lm6uB.js";import{i as t}from"./framework-D_rUT4EX.js";import{l as n}from"./useRenderElement-B7qr6LiH.js";var r=e(t(),1),i=r.createContext(void 0);function a(){let e=r.useContext(i);if(e===void 0)throw Error(n(10));return e}export{a as n,i as t};

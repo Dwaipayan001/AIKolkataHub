@@ -1,2 +1,3 @@
-# CodeAdda-Website
-This repository consists of the Code Adda Website
+# AIKolkataHub Website
+
+This repository contains the AIKolkataHub website.

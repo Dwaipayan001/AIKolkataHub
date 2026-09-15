@@ -12,7 +12,7 @@ export async function GET(_request: Request, { params }: RouteContext) {
   return new Response(generateCourseBrochure(course), {
     headers: {
       'Content-Type': 'application/pdf',
-      'Content-Disposition': `attachment; filename="codeadda-${course.slug}-brochure.pdf"`,
+      'Content-Disposition': `attachment; filename="aikolkatahub-${course.slug}-brochure.pdf"`,
       'Cache-Control': 'public, max-age=3600',
     },
   });

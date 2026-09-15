@@ -1,1 +1,0 @@
-import{__toESM as e,require_react as t}from"./ssr.mjs";import{o as n}from"./useRenderElement-B27tyoBM.mjs";var r=e(t(),1),i=r.createContext(void 0);function a(){let e=r.useContext(i);if(e===void 0)throw Error(n(10));return e}export{a,i};
