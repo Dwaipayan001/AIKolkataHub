@@ -1,1 +1,1 @@
-export const SITE_URL = 'https://code-adda-ai.vercel.app';
+export const SITE_URL = 'https://ai-kolkata-hub.vercel.app';

@@ -32,6 +32,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { courses } from '@/lib/courses';
+import { SITE_URL } from '@/lib/site';
 
 const CONTACT_EMAIL = 'hellocodeadda@gmail.com';
 
@@ -103,7 +104,7 @@ export default function Home() {
     '@context': 'https://schema.org',
     '@type': 'EducationalOrganization',
     name: 'AIKolkataHub',
-    url: 'https://code-adda-ai.vercel.app/',
+    url: `${SITE_URL}/`,
     description:
       'Weekend live online courses in Python, Agentic AI, Machine Learning and Data Science for school and college students.',
     areaServed: ['Kolkata', 'India'],
