@@ -390,3 +390,157 @@ footer nav { display: flex; gap: 22px; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
 }
+
+/* Homepage treatment based on the supplied UI reference. */
+.site-header {
+  color: #f7f9ff;
+  border-bottom-color: rgba(142, 168, 255, .13);
+  background: rgba(5, 18, 48, .9);
+  box-shadow: 0 10px 35px rgba(1, 8, 28, .16);
+}
+.site-header .brand > span:last-child > span { color: #82a0ff; }
+.site-header .desktop-nav a { color: #abb8d8; }
+.site-header .desktop-nav a:hover { color: white; }
+.site-header .mobile-nav { color: var(--ink); }
+.course-header {
+  color: var(--ink);
+  border-bottom-color: rgba(40, 63, 120, .1);
+  background: rgba(255, 253, 248, .9);
+}
+
+.hero {
+  max-width: none;
+  min-height: 710px;
+  padding-left: max(clamp(20px, 5vw, 76px), calc((100vw - 1388px) / 2));
+  padding-right: max(clamp(20px, 5vw, 76px), calc((100vw - 1388px) / 2));
+  color: white;
+  background:
+    radial-gradient(circle at 72% 42%, rgba(45, 90, 255, .34), transparent 32%),
+    radial-gradient(circle at 5% 100%, rgba(20, 103, 215, .22), transparent 30%),
+    linear-gradient(128deg, #03112c 0%, #071a43 48%, #061331 100%);
+}
+.hero::before {
+  width: 600px;
+  height: 600px;
+  left: auto;
+  right: 2%;
+  top: 3%;
+  z-index: 0;
+  opacity: .35;
+  background: #285cff;
+  filter: blur(110px);
+}
+.hero-copy, .hero-visual { position: relative; z-index: 1; }
+.hero .eyebrow {
+  color: #c5d2ff;
+  border-color: rgba(126, 153, 255, .36);
+  background: rgba(71, 102, 210, .18);
+}
+.hero h1 { font-size: clamp(3rem, 5.1vw, 5.8rem); text-shadow: 0 8px 30px rgba(0, 0, 0, .2); }
+.hero h1 em { color: #38c5ff; }
+.hero-lede { color: #b5c2dc; }
+.hero .weekend-callout {
+  color: #dbe4fa;
+  border-color: rgba(150, 173, 255, .22);
+  background: rgba(255, 255, 255, .07);
+}
+.hero .weekend-callout > svg { color: #7da0ff; }
+.hero .secondary-button {
+  color: white;
+  border-color: rgba(182, 199, 255, .38);
+  background: rgba(255, 255, 255, .06);
+}
+.hero .secondary-button:hover { border-color: #9bb1ff; background: rgba(255, 255, 255, .1); }
+.hero-proof { color: #aebbd5; }
+.hero-proof svg { color: #55d6ff; }
+.hero-visual img {
+  border: 1px solid rgba(160, 183, 255, .28);
+  box-shadow: 0 35px 85px rgba(0, 0, 0, .4), 0 0 60px rgba(52, 100, 255, .2);
+}
+.hero-visual::before {
+  background: linear-gradient(135deg, rgba(91, 124, 255, .7), rgba(100, 65, 210, .32) 60%, rgba(31, 205, 255, .22));
+}
+.hero-visual figcaption { color: #dfe7ff; background: rgba(4, 17, 47, .82); border: 1px solid rgba(154, 177, 255, .25); }
+
+.value-strip {
+  position: relative;
+  z-index: 5;
+  max-width: 1190px;
+  margin-top: -35px;
+  padding: 0 20px;
+}
+.value-strip p {
+  color: white;
+  border-color: rgba(145, 169, 240, .22);
+  background: linear-gradient(145deg, rgba(23, 47, 104, .98), rgba(12, 31, 75, .98));
+  box-shadow: 0 18px 40px rgba(9, 25, 67, .22);
+}
+.value-strip p:last-child { border-right-color: rgba(145, 169, 240, .22); }
+.value-strip svg { width: 42px; height: 42px; padding: 10px; border-radius: 12px; color: #9ab0ff; background: rgba(83, 115, 238, .22); }
+.value-strip span { color: #aab7d4; }
+
+.program-card {
+  color: white;
+  border: 0;
+  box-shadow: 0 18px 42px rgba(31, 56, 130, .16);
+}
+.program-card.blue { background: linear-gradient(145deg, #3565ff, #2744bd); }
+.program-card.purple { background: linear-gradient(145deg, #a44eff, #6530c8); }
+.program-card.green { background: linear-gradient(145deg, #12bea2, #078a78); }
+.program-card.orange { background: linear-gradient(145deg, #ff9a32, #e45b27); }
+.program-card:hover { box-shadow: 0 24px 52px rgba(31, 56, 130, .23); }
+.program-card .card-icon svg { color: white; background: rgba(255, 255, 255, .15); }
+.program-card .card-icon span,
+.program-card .course-audience,
+.program-card > p:not(.card-icon):not(.course-audience):not(.course-format),
+.program-card .course-format,
+.program-card .course-format svg { color: rgba(255, 255, 255, .8) !important; }
+.program-card h3, .program-card > a { color: white; }
+
+.build-section .project-visual { grid-column: 2; grid-row: 1; }
+.build-section .build-copy { grid-column: 1; grid-row: 1; }
+.build-section .project-grid { grid-row: 2; }
+
+.method-section {
+  color: white;
+  background:
+    radial-gradient(circle at 20% 100%, rgba(45, 102, 255, .28), transparent 30%),
+    linear-gradient(125deg, #04132f, #08234f 55%, #061735);
+}
+.method-section .kicker { color: #82a6ff; }
+.method-section .section-heading > p:last-child { color: #adbad5; }
+.method-steps li { border-color: rgba(142, 166, 230, .24); background: rgba(255, 255, 255, .06); }
+.method-steps li > span { color: #789bff; }
+.method-steps p { color: #aebbd3; }
+
+.enrol-section {
+  color: white;
+  background:
+    radial-gradient(circle at 82% 32%, rgba(77, 91, 255, .45), transparent 28%),
+    linear-gradient(125deg, #071735, #102969 58%, #081a3d);
+}
+.enrol-section .kicker { color: #87a6ff; }
+.enrol-section .contact-intro > p:not(.kicker):not(.contact-note) { color: #b8c3dd; }
+.enrol-section .contact-email { color: #9db4ff; }
+.enrol-section .contact-note { color: #a2aec7; }
+
+footer {
+  min-height: 150px;
+  color: #929fbd;
+  border-top-color: rgba(143, 167, 229, .14);
+  background: #030d21;
+}
+footer .brand { color: white; }
+footer nav a { color: #929fbd; }
+
+@media (max-width: 900px) {
+  .build-section .project-visual,
+  .build-section .build-copy,
+  .build-section .project-grid { grid-column: auto; grid-row: auto; }
+}
+
+@media (max-width: 650px) {
+  .hero { padding-top: 50px; padding-bottom: 95px; }
+  .value-strip { margin-top: -30px; }
+  .value-strip p { border-color: rgba(145, 169, 240, .22) !important; }
+}
